@@ -1,15 +1,15 @@
 from agente import IA_DISPONIVEL
 from google import genai
+from tabulate import tabulate
 
-def gerar_ficha_local(genero = str, dias_por_semana = int, musculo_preferencial = str):
+def gerar_ficha_local(genero: str, dias_por_semana: int, musculo_preferencial: str):
 
-    rotina = []
-
-    if genero == "masculino" and dias_por_semana <= 3:
-            return {
-            "Dia 1 (Fullbody)": {
-                "Grupos musculares": "Quadríceps, posterior de coxa, glúteos, dorsal, bíceps, peito, ombro e tríceps",
-                "Exercícios": [
+    # Lista de divisões de treino
+    # Estrutura para o gênero masculino
+    # Estrutura de um fullbody (3 dias na semana)
+    fullbody_variacao01 = {
+        "Grupos musculares": "Quadríceps, posterior de coxa, glúteos, dorsal, bíceps, peito, ombro e tríceps",
+        "Exercícios": [
                     "Agachamento livre",
                     "Stiff",
                     "Puxada alta",
@@ -17,12 +17,11 @@ def gerar_ficha_local(genero = str, dias_por_semana = int, musculo_preferencial 
                     "Crucifixo na máquina",
                     "Tríceps francês",
                     "Elevação lateral"
-                ],
-            "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-            "Dia 2 (Fullbody)": {
-                "Grupos musculares": "Quadríceps, posterior de coxa, glúteos, dorsal, bíceps, peito, ombro e tríceps",
-                "Exercícios": [
+                ]
+            }
+    fullbody_variacao02 = {
+        "Grupos musculares": "Quadríceps, posterior de coxa, glúteos, dorsal, bíceps, peito, ombro e tríceps",
+        "Exercícios": [
                     "Cadeira extensora",
                     "Mesa flexora",
                     "Remada na máquina",
@@ -30,44 +29,62 @@ def gerar_ficha_local(genero = str, dias_por_semana = int, musculo_preferencial 
                     "Supino inclinado 45º",
                     "Tríceps pulley",
                     "Elevação frontal"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-            "Dia 3 (Fullbody)": {
-                "Grupos musculares": "Quadríceps, posterior de coxa, glúteos, dorsal, bíceps, peito, ombro e tríceps",
-                "Exercícios": [
+                ]
+            }
+    fullbody_variacao03 = {
+        "Grupos musculares": "Quadríceps, posterior de coxa, glúteos, dorsal, bíceps, peito, ombro e tríceps",
+        "Exercícios": [
                     "Leg press 45º",
-                    "Elevação pélvica",
+                    "Cadeira flexora",
                     "Pulldown",
                     "Rosca direta",
                     "Supino reto",
                     "Tríceps testa",
                     "Remada alta"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-                }
+                ]
             }
-        
-
-    elif genero.lower() == "masculino" and dias_por_semana == 4:
-        return {
-            "Dia 1 (Superior)": {
-                "Grupos musculares": "Dorsal, bíceps, peito, tríceps e ombro",
-                "Exercícios": [
+    # Estrutura de um upper/lower (4 dias na semana)
+    upper_variacao01 = {
+        "Grupos musculares": "Dorsal, bíceps, peito, tríceps e ombro",
+        "Exercícios": [
                     "Crucifixo na máquina",
                     "Supino inclinado",
                     "Puxada alta",
-                    "Remada na máquina",
+                    "Remada fechada",
                     "Rosca Scott",
                     "Tríceps pulley",
                     "Elevação lateral"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 2 (Inferior)": {
-                "Grupos musculares": "Quadríceps, posterior de coxa, glúteos e panturrilhas",
-                "Exercícios": [
+                ]
+            }
+    upper_variacao02 = {
+        "Grupos musculares": "Dorsal, bíceps, peito, tríceps e ombro",
+        "Exercícios": [
+                    "Supino reto",
+                    "Crucifixo polia baixa",
+                    "Pulldown",
+                    "Remada pronada",
+                    "Rosca inclinada 45º",
+                    "Tríceps francês",
+                    "Remada alta"
+                ]
+            }
+    # Estrutura para um push/pull/legs + upper/lower (5 dias na semana)
+    upper_variacao03 = {
+        "Grupos musculares": "Dorsal, bíceps, peito, tríceps e ombro",
+        "Exercícios": [
+                    "Supino reto",
+                    "Crucifixo polia baixa",
+                    "Puxada alta",
+                    "Remada na máquina",
+                    "Rosca direta",
+                    "Tríceps francês",
+                    "Remada alta"
+                ]
+            }
+    # Estrutura de um upper/lower (4 dias na semana)
+    lower_variacao01 = {
+        "Grupos musculares": "Quadríceps, posterior de coxa, glúteos e panturrilhas",
+        "Exercícios": [
                     "Agachamento livre",
                     "Cadeira extensora",
                     "Stiff",
@@ -75,284 +92,96 @@ def gerar_ficha_local(genero = str, dias_por_semana = int, musculo_preferencial 
                     "Elevação pélvica",
                     "Cadeira adutora",
                     "Elevação de panturrilhas em pé"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 3 (Superior)": {
-                "Grupos musculares": "Dorsal, bíceps, peito, tríceps e ombro",
-                "Exercícios": [
-                    "Supino reto",
-                    "Crucifixo polia baixa",
-                    "Pulldown",
-                    "Remada baixa",
-                    "Rosca inclinada 45º",
-                    "Tríceps francês",
-                    "Remada alta"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 4 (Inferior)": {
-                "Grupos musculares": "Quadríceps, posterior de coxa, glúteos e panturrilhas",
-                "Exercícios": [
+                ]
+            }
+    lower_variacao02 = {
+        "Grupos musculares": "Quadríceps, posterior de coxa, glúteos e panturrilhas",
+        "Exercícios": [
                     "Leg press 45º",
                     "Cadeira extensora",
-                    "Agachamento terra sumô",
+                    "Levantamento terra sumô",
                     "Mesa flexora",
                     "Cadeira abdutora",
+                    "Cadeira adutora",
                     "Elevação de panturrilhas sentado"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
+                ]
             }
-        }
-    
-
-    elif genero.lower() == "masculino" and dias_por_semana == 5:
-        return {
-            "Dia 1 (Puxar)": {
-                "Grupos musculares": "Dorsal, bíceps e antebraço",
-                "Exercícios": [
+    # Estrutura para um push/pull/legs + upper/lower (5 dias na semana)
+    lower_variacao03 = {
+        "Grupos musculares": "Quadríceps, posterior de coxa, glúteos e panturrilhas",
+        "Exercícios": [
+                    "Leg press 45º",
+                    "Cadeira extensora",
+                    "Mesa flexora",
+                    "Cadeira abdutora",
+                    "Cadeira adutora",
+                    "Elevação de panturrilhas em pé"
+                ]
+            }
+    # Estrutura para um push/pull/legs x2 (6 dias na semana) ou push/pull/legs + upper/lower (5 dias na semana)
+    push_variacao01 = {
+        "Grupos musculares": "Dorsal, bíceps e antebraço",
+        "Exercícios": [
                     "Puxada alta",
                     "Remada curvada",
                     "Pulldown",
                     "Rosca Scott",
                     "Rosca inclinada 45º",
                     "Rosca inversa"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 2 (Empurrar)": {
-                "Grupos musculares": "Peito, ombro e tríceps",
-                "Exercícios": [
-                    "Crucifixo na máquina",
-                    "Supino inclinado",
-                    "Crucifixo polia alta",
-                    "Elevação frontal",
-                    "Elevação lateral",
-                    "Tríceps francês",
-                    "Tríceps pulley"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 3 (Pernas)": {
-                "Grupos musculares": "Quadríceps, posterior de coxa, glúteos e panturrilhas",
-                "Exercícios": [
-                    "Agachamento livre",
-                    "Cadeira extensora",
-                    "Stiff",
-                    "Elevação pélvica",
-                    "Cadeira abdutora",
-                    "Cadeira adutora",
-                    "Elevação de panturrilhas em pé"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 4 (Superiores)": {
-                "Grupos musculares": "Dorsal, bíceps, peito, tríceps e ombro",
-                "Exercícios": [
-                    "Supino reto",
-                    "Crucifixo polia baixa",
-                    "Puxada alta",
-                    "Remada na máquina",
-                    "Rosca direta",
-                    "Tríceps francês",
-                    "Remada alta"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 5 (Inferiores)": {
-                "Grupos musculares": "Quadríceps, posterior de coxa, glúteos e panturrilhas",
-                "Exercícios": [
-                    "Leg press 45º",
-                    "Cadeira extensora",
-                    "Mesa flexora",
-                    "Cadeira abdutora",
-                    "Cadeira adutora",
-                    "Elevação de panturrilhas em pé"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
+                ]
             }
-        }
-
-
-    elif genero.lower() == "masculino" and dias_por_semana >= 6:
-        return {
-            "Dia 1 (Puxar)": {
-                "Grupos musculares": "Dorsal, bíceps e antebraço",
-                "Exercícios": [
-                    "Puxada alta",
-                    "Remada na máquina",
-                    "Pulldown",
-                    "Rosca Scott",
-                    "Rosca inclinada 45º",
-                    "Rosca inversa"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 2 (Empurrar)": {
-                "Grupos musculares": "Peito, ombro e tríceps",
-                "Exercícios": [
+    pull_variacao01 = {
+        "Grupos musculares": "Peito, ombro e tríceps",
+        "Exercícios": [
                     "Crucifixo na máquina",
                     "Supino inclinado",
-                    "Crucifixo polia alta",
+                    "Paralela inclinada",
                     "Elevação frontal",
                     "Elevação lateral",
                     "Tríceps francês",
                     "Tríceps pulley"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 3 (Pernas)": {
-                "Grupos musculares": "Quadríceps, posterior de coxa, glúteos e panturrilhas",
-                "Exercícios": [
-                    "Agachamento livre",
-                    "Cadeira extensora",
-                    "Stiff",
-                    "Mesa flexora",
-                    "Elevação pélvica",
-                    "Cadeira abdutora",
-                    "Cadeira adutora",
-                    "Elevação de panturrilhas em pé"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 4 (Puxar 2)": {
-                "Grupos musculares": "Dorsal, bíceps e antebraço",
-                "Exercícios": [
-                    "Puxada alta",
-                    "Remada na máquina",
-                    "Pulldown",
-                    "Rosca Scott",
-                    "Rosca inclinada 45º",
-                    "Rosca inversa"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 5 (Empurrar 2)": {
-                "Grupos musculares": "Peito, ombro e tríceps",
-                "Exercícios": [
-                    "Crucifixo na máquina",
-                    "Supino inclinado",
-                    "Crucifixo polia alta",
-                    "Elevação frontal",
-                    "Elevação lateral",
-                    "Tríceps francês",
-                    "Tríceps pulley"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 6 (Pernas 2)": {
-                "Grupos musculares": "Quadríceps, posterior de coxa, glúteos e panturrilhas",
-                "Exercícios": [
-                    "Agachamento livre",
-                    "Cadeira extensora",
-                    "Stiff",
-                    "Mesa flexora",
-                    "Elevação pélvica",
-                    "Cadeira abdutora",
-                    "Cadeira adutora",
-                    "Elevação de panturrilhas em pé"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
+                ]
             }
-        }
+    legs_variacao01 = {
+        "Grupos musculares": "Quadríceps, posterior de coxa, glúteos e panturrilhas",
+        "Exercícios": [
+                    "Agachamento livre",
+                    "Cadeira extensora",
+                    "Stiff",
+                    "Elevação pélvica",
+                    "Cadeira abdutora",
+                    "Cadeira adutora",
+                    "Elevação de panturrilhas em pé"
+                ]
+            }
     
-
-    elif genero.lower() == "feminino" and dias_por_semana <= 3:
-        return {
-            "Dia 1 (Quadríceps e Adutores)": {
-                "Grupos musculares": "Quadríceps, adutores e panturrilhas",
-                "Exercícios": [
+    # Estrutura para o gênero feminino
+    # Estrutura quadríceps/upper/isquiotibiais x2 (6 dias na semana) ou 3 dias na semana
+    quadriceps_adutores_variacao01 = {
+        "Grupos musculares": "Quadríceps, adutores e panturrilhas",
+        "Exercícios": [
                     "Agachamento livre",
                     "Leg press",
                     "Cadeira extensora",
+                    "Agachamento búlgaro",
                     "Cadeira adutora",
+                    "Agachamento sumô",
                     "Elevação de panturrilhas em pé"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 2 (Superiores)": {
-                "Grupos musculares": "Dorsal, bíceps, peito, tríceps e ombro",
-                "Exercícios": [
-                    "Crucifixo na máquina",
-                    "Puxada alta",
-                    "Remada na máquina",
-                    "Rosca direta",
-                    "Tríceps pulley",
-                    "Elevação lateral"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 3 (Isquiotibiais e Glúteo)": {
+                ]
+            }
+    isquiotibiais_gluteo_variacao01 = {
                 "Grupos musculares": "Posterior de coxa e glúteos",
                 "Exercícios": [
-                    "Agachamento terra sumô",
+                    "Cadeira flexora",
                     "Mesa flexora",
                     "Stiff",
+                    "Levantamento terra sumô",
                     "Elevação pélvica",
                     "Cadeira abdutora",
                     "Coice na polia"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
+                ]
             }
-        }
-
-
-    elif genero.lower() == "feminino" and dias_por_semana == 4:
-        return {
-            "Dia 1 (Quadríceps e Adutores)": {
-                "Grupos musculares": "Quadríceps, adutores e panturrilhas",
-                "Exercícios": [
-                    "Agachamento livre",
-                    "Leg press",
-                    "Cadeira extensora",
-                    "Cadeira adutora",
-                    "Elevação de panturrilhas em pé"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 2 (Superiores)": {
-                "Grupos musculares": "Dorsal, bíceps, peito, tríceps e ombro",
-                "Exercícios": [
-                    "Crucifixo na máquina",
-                    "Puxada alta",
-                    "Remada na máquina",
-                    "Rosca direta",
-                    "Tríceps pulley",
-                    "Elevação lateral"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 3 (Isquiotibiais e Panturrilhas)": {
-                "Grupos musculares": "Posterior de coxa e panturrilhas",
-                "Exercícios": [
-                    "Agachamento terra sumô",
-                    "Mesa flexora",
-                    "Stiff",
-                    "Elevação pélvica",
-                    "Cadeira abdutora",
-                    "Coice na polia",
-                    "Panturrilhas sentado",
-                    "Panturrilhas em pé"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 4 (Glúteo e Core)": {
+    gluteo_core_variacao01 = {
                 "Grupos musculares": "Glúteos, abdômen e lombar",
                 "Exercícios": [
                     "Elevação pélvica",
@@ -361,39 +190,9 @@ def gerar_ficha_local(genero = str, dias_por_semana = int, musculo_preferencial 
                     "Extensão lombar",
                     "Abdominal supra",
                     "Abdominal infra"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
+                ]
             }
-        }
-
-
-    elif genero.lower() == "feminino" and dias_por_semana == 5:
-        return {
-            "Dia 1 (Quadríceps)": {
-                "Grupos musculares": "Quadríceps, adutores e panturrilhas",
-                "Exercícios": [
-                    "Agachamento livre",
-                    "Leg press",
-                    "Cadeira extensora",
-                    "Cadeira adutora",
-                    "Elevação de panturrilhas em pé"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 2 (Superiores - Peito, Ombro e Tríceps)": {
-                "Grupos musculares": "Peito, ombro e tríceps",
-                "Exercícios": [
-                    "Crucifixo na máquina",
-                    "Supino inclinado",
-                    "Elevação frontal",
-                    "Elevação lateral",
-                    "Tríceps pulley"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 3 (Isquiotibiais, Abdômen e Lombar)": {
+    isquiotibiais_core_variacao01 = {
                 "Grupos musculares": "Posterior de coxa, abdômen e lombar",
                 "Exercícios": [
                     "Agachamento terra sumô",
@@ -402,120 +201,95 @@ def gerar_ficha_local(genero = str, dias_por_semana = int, musculo_preferencial 
                     "Extensão lombar",
                     "Abdominal supra",
                     "Abdominal infra"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 4 (Superiores - Costas e Bíceps)": {
-                "Grupos musculares": "Dorsal, bíceps e antebraço",
-                "Exercícios": [
+                ]
+            }
+    # Estrutura upper body feminino
+    upper_feminino_varicao01 = {
+        "Grupos musculares": "Dorsal, bíceps, peito, tríceps e ombro",
+        "Exercícios": [
+                    "Crucifixo na máquina",
+                    "Puxada alta",
+                    "Remada na máquina",
+                    "Rosca direta",
+                    "Tríceps pulley",
+                    "Elevação lateral"
+                ]
+            }
+    upper_feminino_varicao02 = {
+        "Grupos musculares": "Peito, ombro e tríceps",
+        "Exercícios": [
+                    "Crucifixo na máquina",
+                    "Supino inclinado",
+                    "Elevação frontal",
+                    "Elevação lateral",
+                    "Tríceps pulley"
+                ]
+            }
+    upper_feminino_varicao03 = {
+        "Grupos musculares": "Dorsal, bíceps e posteior de ombro",
+        "Exercícios": [
                     "Puxada alta",
                     "Remada na máquina",
                     "Pulldown",
                     "Rosca direta com barra",
-                    "Rosca inversa",
                     "Crucifixo inverso"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 5 (Glúteos e Core)": {
-                "Grupos musculares": "Glúteos, abdômen e lombar",
-                "Exercícios": [
-                    "Elevação pélvica",
-                    "Cadeira abdutora",
-                    "Coice na polia",
-                    "Extensão lombar",
-                    "Abdominal supra",
-                    "Abdominal infra"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
+                ]
             }
-        }
-
-
-    elif genero.lower() == "feminino" and dias_por_semana >= 6:
-        return {
-            "Dia 1 (Quadríceps e Adutores)": {
-                "Grupos musculares": "Quadríceps, adutores e panturrilhas",
-                "Exercícios": [
-                    "Agachamento livre",
-                    "Leg press",
-                    "Cadeira extensora",
-                    "Cadeira adutora",
-                    "Elevação de panturrilhas em pé"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 2 (Superiores)": {
-                "Grupos musculares": "Dorsal, bíceps, peito, tríceps e ombro",
-                "Exercícios": [
-                    "Crucifixo na máquina",
-                    "Puxada alta",
-                    "Remada na máquina",
-                    "Rosca direta",
-                    "Tríceps pulley",
-                    "Elevação lateral"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 3 (Isquiotibiais e Glúteo)": {
-                "Grupos musculares": "Posterior de coxa e glúteos",
-                "Exercícios": [
-                    "Agachamento terra sumô",
-                    "Mesa flexora",
-                    "Stiff",
-                    "Elevação pélvica",
-                    "Cadeira abdutora",
-                    "Coice na polia"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 4 (Quadríceps e Adutores 2)": {
-                "Grupos musculares": "Quadríceps, adutores e panturrilhas",
-                "Exercícios": [
-                    "Agachamento livre",
-                    "Leg press",
-                    "Cadeira extensora",
-                    "Cadeira adutora",
-                    "Elevação de panturrilhas em pé"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 5 (Superiores 2)": {
-                "Grupos musculares": "Dorsal, bíceps, peito, tríceps e ombro",
-                "Exercícios": [
-                    "Crucifixo na máquina",
-                    "Puxada alta",
-                    "Remada na máquina",
-                    "Rosca direta",
-                    "Tríceps pulley",
-                    "Elevação lateral"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            },
-
-            "Dia 6 (Isquiotibiais e Glúteo 2)": {
-                "Grupos musculares": "Posterior de coxa e glúteos",
-                "Exercícios": [
-                    "Agachamento terra sumô",
-                    "Mesa flexora",
-                    "Stiff",
-                    "Elevação pélvica",
-                    "Cadeira abdutora",
-                    "Coice na polia"
-                ],
-                "Séries e repetições": "3-4 séries de 8-12 repetições (carga moderada a pesada)"
-            }
-        }
     
+    # Lógica para selecionar e montar a ficha de treino com base nos parâmetros fornecidos
+    ficha = []
 
+    if genero.lower() in ["masculino" or "m"]:
+        if dias_por_semana <= 3:
+            ficha = [fullbody_variacao01, fullbody_variacao02, fullbody_variacao03]
+        elif dias_por_semana == 4:
+            ficha = [upper_variacao01, lower_variacao01, upper_variacao02, lower_variacao02]
+        elif dias_por_semana == 5:
+            ficha = [push_variacao01, pull_variacao01, legs_variacao01, upper_variacao03, lower_variacao03]
+        elif dias_por_semana >= 6:
+            ficha = [push_variacao01, pull_variacao01, legs_variacao01,
+                     push_variacao01, pull_variacao01, legs_variacao01]
+            
+    elif genero.lower() in ["feminino" or "f"]:
+        if dias_por_semana <= 3:
+            ficha = [quadriceps_adutores_variacao01, upper_feminino_varicao01, isquiotibiais_gluteo_variacao01]
+        elif dias_por_semana == 4:
+            ficha = [quadriceps_adutores_variacao01, upper_feminino_varicao01,isquiotibiais_core_variacao01, gluteo_core_variacao01]
+        elif dias_por_semana == 5:
+            ficha = [quadriceps_adutores_variacao01, upper_feminino_varicao02,isquiotibiais_core_variacao01,
+                     upper_feminino_varicao03, gluteo_core_variacao01]
+        elif dias_por_semana >= 6:
+            ficha = [quadriceps_adutores_variacao01, upper_feminino_varicao01, isquiotibiais_gluteo_variacao01,
+                     quadriceps_adutores_variacao01, upper_feminino_varicao03, isquiotibiais_core_variacao01]
+    
     else:
-            return "Desculpe, não consegui gerar uma ficha de treino com os parâmetros fornecidos. Por favor, verifique as informações e tente novamente."
+        ficha = [{"Grupos musculares": "Corpo inteiro", "Exercícios": ["Agachamento", "Supino", "Remada", "Rosca direta", "Tríceps pulley"]}]
+
+    tabela_ficha = []
+
+    # Montar a tabela formatada utilizando a biblioteca tabulate
+    for dia, treino in enumerate(ficha, start=1):
+        tabela_ficha.append([
+            f"Dia {dia}",
+            treino["Grupos musculares"],
+            "\n".join(treino["Exercícios"]),
+            "3-4x8-12",
+            "60-90s",
+            "20 min pós treino"
+        ])
+
+    tabela_formatada = tabulate(
+        tabela_ficha,
+        headers=["Dia", "Grupos Musculares", "Exercícios", "Séries/Reps", "Descanso", "Cardio"],
+        tablefmt="fancy_grid",
+        stralign="center"
+    )
+
+    print("\n FICHA DE TREINO PADRÃO \n")
+    print(f" {dias_por_semana} dias/semana | {genero.title()} | Foco: {musculo_preferencial.title()}")
+    print(tabela_formatada)
+
+    return tabela_formatada
 
 
 def gerar_ficha_com_ia(genero: str, dias_por_semana: int, musculo_preferencial: str):
@@ -541,7 +315,7 @@ def gerar_ficha_com_ia(genero: str, dias_por_semana: int, musculo_preferencial: 
                 Eis a estrutura de como a resposta deve ser formatada:
 
                 Texto introdutório breve:
-                Olá! Com base nas suas preferências, aqui está uma ficha de treino personalizada para você. Esta ficha é projetada para ajudar a maximizar seus ganhos no músculo {} enquanto mantém um equilíbrio saudável entre treino e recuperação.
+                Olá! Com base nas suas preferências, aqui está uma ficha de treino personalizada para você. Esta ficha é projetada para ajudar a maximizar seus ganhos no seu músculo preferencial enquanto mantém um equilíbrio saudável entre treino e recuperação.
 
                 Divisão semanal de treino:
 
@@ -567,8 +341,8 @@ def gerar_ficha_com_ia(genero: str, dias_por_semana: int, musculo_preferencial: 
                 Conclua com uma nota motivacional:
                 Lembre-se, a consistência é a chave para o sucesso no treino. Mantenha-se focado e dedicado, e você verá resultados incríveis!
                 """.format(
-                    genero, dias_por_semana, musculo_preferencial,musculo_preferencial
-            ))
+                    genero, dias_por_semana, musculo_preferencial
+                ))
 
             resposta_com_ia = client.models.generate_content(
                 model="gemini-2.5-flash",
