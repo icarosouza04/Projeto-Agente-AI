@@ -285,8 +285,6 @@ def gerar_ficha_local(genero: str, dias_por_semana: int, musculo_preferencial: s
         stralign="center"
     )
 
-    print("\n FICHA DE TREINO PADRÃO \n")
-    print(f" {dias_por_semana} dias/semana | {genero.title()} | Foco: {musculo_preferencial.title()}")
     print(tabela_formatada)
 
     return tabela_formatada
@@ -299,50 +297,27 @@ def gerar_ficha_com_ia(genero: str, dias_por_semana: int, musculo_preferencial: 
             client = genai.Client()
 
             prompt = (
-                """Você é um professor de educação física especializado em criar fichas de treino personalizadas.
-                Com base nas informações fornecidas, elabore uma ficha de treino detalhada.
-                Gênero: {}
-                Dias por semana: {}
-                Músculo preferencial: {}
-                A ficha deve incluir:
-                - Divisão dos dias de treino
-                - Grupos musculares trabalhados em cada dia
-                - Lista de exercícios para cada grupo muscular
-                - Séries e repetições recomendadas
-                - Dias de descanso estratégicos, por exemplo, após 2 a 3 dias de treino consecutivos
-                - Cardio recomendado (tipo e duração) após o treino de musculação
+                f"""Você é um professor de educação física especializado em criar fichas de treino personalizadas.
+                Com base nas informações fornecidas, elabore uma ficha de treino detalhada para o usuário.
+                Utilize uma linguagem clara e motivacional, adequada para iniciantes e intermediários.
 
-                Eis a estrutura de como a resposta deve ser formatada:
+                Instruções para a resposta:
+                1. Crie uma ficha de treino estruturada levando em consideração o gênero {genero}, o número de {dias_por_semana} dias por semana e o músculo preferencial:{musculo_preferencial}.
+                3. Inclua exercícios que foquem no músculo {musculo_preferencial}, mas também trabalhem outros grupos musculares importantes.
+                4. Para cada dia de treino, liste os grupos musculares trabalhados, os exercícios recomendados, o número de séries e repetições, o tempo de descanso entre as séries e uma sugestão de cardio pós-treino.
+                5. Exiba a ficha de treino em uma tabela formatada para melhor visualização.
+                    A tabela deve conter as seguintes colunas:
+                    - Dia
+                    - Grupos Musculares
+                    - Exercícios
+                    - Séries/Reps
+                    - Descanso
+                    - Cardio
+                6. Forneça dicas adicionais de treino e motivação ao final da ficha.
 
-                Texto introdutório breve:
-                Olá! Com base nas suas preferências, aqui está uma ficha de treino personalizada para você. Esta ficha é projetada para ajudar a maximizar seus ganhos no seu músculo preferencial enquanto mantém um equilíbrio saudável entre treino e recuperação.
-
-                Divisão semanal de treino:
-
-                Segunda-feira: Peito, Tríceps e Ombro
-                Terça-feira: Costas (ênfase na espessura), Bíceps
-                Quarta-feira: Pernas, Panturrilhas
-                Quinta-feira: DESCANSO ATIVO ou DESCANSO TOTAL
-                Sexta-feira: Ombros, Trapézio, Antebraços
-                Sábado: Costas (ênfase na largura), Bíceps (leve) e Abdômen
-                Domingo: DESCANSO TOTAL
-
-                Tabela de Treino:
-
-                | Dia             | Grupos Musculares        | Exercícios                         | Séries e Repetições       | Cardio Recomendado        |
-                |-----------------|--------------------------|------------------------------------|---------------------------|---------------------------|
-                | Segunda-feira   | Peito, Tríceps, Ombro    | Supino Reto, Tríceps Pulley, etc.  | 3-4 séries de 8-12 reps   | 20 min de corrida leve    |
-                | Terça-feira     | Costas, Bíceps           | Puxada Alta, Rosca Direta, etc.    | 3-4 séries de 8-12 reps   | 15 min de HIIT            |
-                | Quarta-feira    | Quadríceps, panturrilhas | Agachamento livre, stiff, etc      | ...                       | ...                       |
-                | Quinta-feira    | Descanso completo        |                                    | ...                       | ...                       |
-                
-                Continue a tabela para todos os dias da semana, adaptando conforme os dias de treino e descanso.
-
-                Conclua com uma nota motivacional:
-                Lembre-se, a consistência é a chave para o sucesso no treino. Mantenha-se focado e dedicado, e você verá resultados incríveis!
-                """.format(
-                    genero, dias_por_semana, musculo_preferencial
-                ))
+                """
+                .format(genero=genero, dias_por_semana=dias_por_semana, musculo_preferencial=musculo_preferencial)
+            )
 
             resposta_com_ia = client.models.generate_content(
                 model="gemini-2.5-flash",
