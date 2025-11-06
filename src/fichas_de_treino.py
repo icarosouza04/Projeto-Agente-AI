@@ -7,7 +7,7 @@ def gerar_ficha_local(genero: str, dias_por_semana: int, musculo_preferencial: s
     # Lista de divisões de treino
     # Estrutura para o gênero masculino
     # Estrutura de um fullbody (3 dias na semana)
-    fullbody_variacao01 = {
+    fullbody_variacao01 = { # Primeira variação de um treino fullbody
         "Grupos musculares": "Quadríceps, posterior de coxa, glúteos, dorsal, bíceps, peito, ombro e tríceps",
         "Exercícios": [
                     "Agachamento livre",
@@ -19,7 +19,7 @@ def gerar_ficha_local(genero: str, dias_por_semana: int, musculo_preferencial: s
                     "Elevação lateral"
                 ]
             }
-    fullbody_variacao02 = {
+    fullbody_variacao02 = { # Segunda variação de um treino fullbody
         "Grupos musculares": "Quadríceps, posterior de coxa, glúteos, dorsal, bíceps, peito, ombro e tríceps",
         "Exercícios": [
                     "Cadeira extensora",
@@ -31,7 +31,7 @@ def gerar_ficha_local(genero: str, dias_por_semana: int, musculo_preferencial: s
                     "Elevação frontal"
                 ]
             }
-    fullbody_variacao03 = {
+    fullbody_variacao03 = { # Terceira variação de um treino fullbody
         "Grupos musculares": "Quadríceps, posterior de coxa, glúteos, dorsal, bíceps, peito, ombro e tríceps",
         "Exercícios": [
                     "Leg press 45º",
@@ -44,7 +44,7 @@ def gerar_ficha_local(genero: str, dias_por_semana: int, musculo_preferencial: s
                 ]
             }
     # Estrutura de um upper/lower (4 dias na semana)
-    upper_variacao01 = {
+    upper_variacao01 = { # Primeira variação de um treino upper (utilizado no upper/lower)
         "Grupos musculares": "Dorsal, bíceps, peito, tríceps e ombro",
         "Exercícios": [
                     "Crucifixo na máquina",
@@ -56,7 +56,7 @@ def gerar_ficha_local(genero: str, dias_por_semana: int, musculo_preferencial: s
                     "Elevação lateral"
                 ]
             }
-    upper_variacao02 = {
+    upper_variacao02 = { # Segunda variação de um treino upper (utilizado no upper/lower)
         "Grupos musculares": "Dorsal, bíceps, peito, tríceps e ombro",
         "Exercícios": [
                     "Supino reto",
@@ -68,8 +68,7 @@ def gerar_ficha_local(genero: str, dias_por_semana: int, musculo_preferencial: s
                     "Remada alta"
                 ]
             }
-    # Estrutura para um push/pull/legs + upper/lower (5 dias na semana)
-    upper_variacao03 = {
+    upper_variacao03 = { # Terceira variação de um treino upper (utilizado no push/pull/legs + upper/lower)
         "Grupos musculares": "Dorsal, bíceps, peito, tríceps e ombro",
         "Exercícios": [
                     "Supino reto",
@@ -81,8 +80,7 @@ def gerar_ficha_local(genero: str, dias_por_semana: int, musculo_preferencial: s
                     "Remada alta"
                 ]
             }
-    # Estrutura de um upper/lower (4 dias na semana)
-    lower_variacao01 = {
+    lower_variacao01 = { # Primeira variação de um treino lower (utilizado no upper/lower)
         "Grupos musculares": "Quadríceps, posterior de coxa, glúteos e panturrilhas",
         "Exercícios": [
                     "Agachamento livre",
@@ -94,7 +92,7 @@ def gerar_ficha_local(genero: str, dias_por_semana: int, musculo_preferencial: s
                     "Elevação de panturrilhas em pé"
                 ]
             }
-    lower_variacao02 = {
+    lower_variacao02 = { # Segunda variação de um treino lower (utilizado no upper/lower)
         "Grupos musculares": "Quadríceps, posterior de coxa, glúteos e panturrilhas",
         "Exercícios": [
                     "Leg press 45º",
@@ -106,8 +104,7 @@ def gerar_ficha_local(genero: str, dias_por_semana: int, musculo_preferencial: s
                     "Elevação de panturrilhas sentado"
                 ]
             }
-    # Estrutura para um push/pull/legs + upper/lower (5 dias na semana)
-    lower_variacao03 = {
+    lower_variacao03 = { # Terceira variação de um treino lower (utilizado no push/pull/legs + upper/lower)
         "Grupos musculares": "Quadríceps, posterior de coxa, glúteos e panturrilhas",
         "Exercícios": [
                     "Leg press 45º",
@@ -119,7 +116,7 @@ def gerar_ficha_local(genero: str, dias_por_semana: int, musculo_preferencial: s
                 ]
             }
     # Estrutura para um push/pull/legs x2 (6 dias na semana) ou push/pull/legs + upper/lower (5 dias na semana)
-    push_variacao01 = {
+    push_variacao01 = { # Primeira variação de um treino push
         "Grupos musculares": "Dorsal, bíceps e antebraço",
         "Exercícios": [
                     "Puxada alta",
@@ -130,7 +127,7 @@ def gerar_ficha_local(genero: str, dias_por_semana: int, musculo_preferencial: s
                     "Rosca inversa"
                 ]
             }
-    pull_variacao01 = {
+    pull_variacao01 = { # Primeira variação de um treino pull
         "Grupos musculares": "Peito, ombro e tríceps",
         "Exercícios": [
                     "Crucifixo na máquina",
@@ -142,7 +139,7 @@ def gerar_ficha_local(genero: str, dias_por_semana: int, musculo_preferencial: s
                     "Tríceps pulley"
                 ]
             }
-    legs_variacao01 = {
+    legs_variacao01 = { # Primeira variação de um treino legs
         "Grupos musculares": "Quadríceps, posterior de coxa, glúteos e panturrilhas",
         "Exercícios": [
                     "Agachamento livre",
@@ -154,10 +151,9 @@ def gerar_ficha_local(genero: str, dias_por_semana: int, musculo_preferencial: s
                     "Elevação de panturrilhas em pé"
                 ]
             }
-    
     # Estrutura para o gênero feminino
     # Estrutura quadríceps/upper/isquiotibiais x2 (6 dias na semana) ou 3 dias na semana
-    quadriceps_adutores_variacao01 = {
+    quadriceps_adutores_variacao01 = { # Primeira variação de um treino de quadríceps e adutores feminino
         "Grupos musculares": "Quadríceps, adutores e panturrilhas",
         "Exercícios": [
                     "Agachamento livre",
@@ -169,7 +165,7 @@ def gerar_ficha_local(genero: str, dias_por_semana: int, musculo_preferencial: s
                     "Elevação de panturrilhas em pé"
                 ]
             }
-    isquiotibiais_gluteo_variacao01 = {
+    isquiotibiais_gluteo_variacao01 = { # Primeira variação de um treino de isquiotibiais e glúteos feminino
                 "Grupos musculares": "Posterior de coxa e glúteos",
                 "Exercícios": [
                     "Cadeira flexora",
@@ -181,7 +177,7 @@ def gerar_ficha_local(genero: str, dias_por_semana: int, musculo_preferencial: s
                     "Coice na polia"
                 ]
             }
-    gluteo_core_variacao01 = {
+    gluteo_core_variacao01 = { # Primeira variação de um treino de glúteos e core feminino
                 "Grupos musculares": "Glúteos, abdômen e lombar",
                 "Exercícios": [
                     "Elevação pélvica",
@@ -192,7 +188,7 @@ def gerar_ficha_local(genero: str, dias_por_semana: int, musculo_preferencial: s
                     "Abdominal infra"
                 ]
             }
-    isquiotibiais_core_variacao01 = {
+    isquiotibiais_core_variacao01 = { # Primeira variação de um treino de isquiotibiais e core feminino
                 "Grupos musculares": "Posterior de coxa, abdômen e lombar",
                 "Exercícios": [
                     "Agachamento terra sumô",
@@ -204,7 +200,7 @@ def gerar_ficha_local(genero: str, dias_por_semana: int, musculo_preferencial: s
                 ]
             }
     # Estrutura upper body feminino
-    upper_feminino_varicao01 = {
+    upper_feminino_varicao01 = { # Primeira variação de um treino de upper feminino (utilizado caso haja apenas um dia de superiores na rotina)
         "Grupos musculares": "Dorsal, bíceps, peito, tríceps e ombro",
         "Exercícios": [
                     "Crucifixo na máquina",
@@ -215,7 +211,7 @@ def gerar_ficha_local(genero: str, dias_por_semana: int, musculo_preferencial: s
                     "Elevação lateral"
                 ]
             }
-    upper_feminino_varicao02 = {
+    upper_feminino_varicao02 = { # Segunda variação de um treino de upper feminino (utilizado caso haja mais de um dia de superiores na rotina)
         "Grupos musculares": "Peito, ombro e tríceps",
         "Exercícios": [
                     "Crucifixo na máquina",
@@ -225,7 +221,7 @@ def gerar_ficha_local(genero: str, dias_por_semana: int, musculo_preferencial: s
                     "Tríceps pulley"
                 ]
             }
-    upper_feminino_varicao03 = {
+    upper_feminino_varicao03 = { # Terceira variação de um treino de upper feminino (utilizado caso haja mais de um dia de superiores na rotina)
         "Grupos musculares": "Dorsal, bíceps e posteior de ombro",
         "Exercícios": [
                     "Puxada alta",
@@ -285,8 +281,17 @@ def gerar_ficha_local(genero: str, dias_por_semana: int, musculo_preferencial: s
         stralign="center"
     )
 
-    print(tabela_formatada)
+    print("\nConselhos adicionais:\n")
+    print("""1. Foque na progressão de carga e execução dos exercícios.
+2. Tente levar o músculo à falha nas últimas repetições. Isso é essencial para a hipertrofia muscular.
+3. É recomendado adicionar um ou dois dias de descanso na rotina, de preferência após dois ou três dias de treinos em sequência.
+4. O descanso não precisa ser completo, pode ser um dia apenas de cardio, por exemplo.
+5. A dieta é tão importante quanto o treino, então não deixe-a de lado.
+6. Tenha constância.
 
+Bom treino!
+          """)
+    
     return tabela_formatada
 
 
